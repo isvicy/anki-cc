@@ -12,30 +12,18 @@
 
 ## 笔记模板选择
 
-### 推荐：KaTeX and Markdown Basic (Color)
+### 注意事项
 
-这是支持代码高亮的模板，内置了 highlight.js 和 markdown-it。
+1. **优先使用 Better Markdown : Basic**（如果已安装）- 支持完整的 Markdown 语法、代码高亮和 LaTeX 公式
+2. **备选方案：KaTeX and Markdown Basic (Color)** - 也支持代码高亮，但功能可能不如 Better Markdown 完整
+3. **不推荐：KaTeX and Markdown Basic（无 Color 后缀）** - 不支持代码高亮，需要使用 HTML 格式
 
-**使用 Markdown 语法编写内容：**
+### 批量创建卡片
 
-```markdown
-## 标题
-
-这是正文内容。
-
-```bash
-# 这是代码块，会自动语法高亮
-echo "hello"
-```
-
-**解释：**
-- `行内代码` 使用反引号
-- 列表项
-```
-
-### 不推荐：KaTeX and Markdown Basic（无 Color 后缀）
-
-这个模板不支持代码高亮，需要使用 HTML 格式编写（`<h2>`, `<pre><code>` 等），且代码没有语法高亮。
+使用 `create_notes_bulk` 可以一次创建多个卡片，提高效率：
+- 支持混合不同的卡片类型
+- 自动处理重复检测
+- 可选的自动音频生成（适用于语言学习）
 
 ## 特殊字符转义
 
@@ -90,6 +78,8 @@ A: Anki → Tools → Manage Note Types → 选择模板 → Cards...
 - **格式要求**：
   - 填空题：使用 `{{内容}}`
   - 选择题：Front 必须以 `[` 开头，以 `]::(答案)` 结尾
+    - 单选题答案：单个字母，如 `::(B)`
+    - 多选题答案：多个字母，如 `::(ABC)`
 
 ## Quizify 选择题格式错误总结
 
@@ -187,3 +177,19 @@ bufio.NewReader 创建一个带缓冲的 Reader，默认缓冲区大小是 {{409
 ```
 ((选项 A::✓ 正确！*os.File 实现了 Read 方法，可以从文件读取数据。))<br>((选项 B::✓ 正确！*bytes.Buffer 实现了 Read 方法，可以从内存缓冲区读取数据。))<br>((选项 C::✓ 正确！*strings.Reader 实现了 Read 方法，可以从字符串读取数据。))<br>((选项 D::✗ 不正确。*bufio.Scanner 不是 Reader，它是基于 Reader 的更高级抽象，用于按行或按 token 扫描。))
 ```
+
+## 快速参考总结
+
+### 创建卡片前必读
+1. ✅ 先展示设计，获得用户同意后再创建
+2. ✅ 优先使用 Better Markdown : Basic（普通问答）或 Quizify（填空/选择）
+3. ✅ 每个答案都要包含解释，让卡片自解释
+4. ✅ 代码要用代码块包裹
+5. ✅ Shell 变量中的 $ 符号必须转义为 \$
+
+### Quizify 格式要点
+- **填空题**：`{{内容}}`
+- **选择题**：`[问题<br>选项]::(答案)`
+  - 必须以 `[` 开头
+  - 必须以 `]::(答案)` 结尾
+  - Back 字段格式：`((选项 X::解释))`
