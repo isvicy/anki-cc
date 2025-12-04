@@ -164,7 +164,7 @@ bufio.NewReader 创建一个带缓冲的 Reader，默认缓冲区大小是 {{409
 （留空）
 ```
 
-### Quizify - 选择题示例
+### Quizify - 选择题示例（单选）
 
 **Front:**
 ```
@@ -174,4 +174,16 @@ bufio.NewReader 创建一个带缓冲的 Reader，默认缓冲区大小是 {{409
 **Back:**
 ```
 ((选项 A::不正确。即使有错误，已读取的数据仍然是有效的，不应该忽略。))<br>((选项 B::✓ 正确！根据 io.Reader 的约定，当 n > 0 时，应该先处理这 n 个字节的有效数据，然后再处理错误。这是因为错误可能发生在读取部分数据之后。))<br>((选项 C::不正确。这是 io.Reader 的正常行为模式，不应该 panic。))<br>((选项 D::不正确。不应该自动重试，应该先处理已读取的数据。))
+```
+
+### Quizify - 选择题示例（多选）
+
+**Front:**
+```
+[以下哪些类型实现了 io.Reader 接口？<br>A. *os.File<br>B. *bytes.Buffer<br>C. *strings.Reader<br>D. *bufio.Scanner]::(ABC)
+```
+
+**Back:**
+```
+((选项 A::✓ 正确！*os.File 实现了 Read 方法，可以从文件读取数据。))<br>((选项 B::✓ 正确！*bytes.Buffer 实现了 Read 方法，可以从内存缓冲区读取数据。))<br>((选项 C::✓ 正确！*strings.Reader 实现了 Read 方法，可以从字符串读取数据。))<br>((选项 D::✗ 不正确。*bufio.Scanner 不是 Reader，它是基于 Reader 的更高级抽象，用于按行或按 token 扫描。))
 ```
